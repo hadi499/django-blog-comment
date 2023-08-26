@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container" style="margin-top: 70px">
+  <div class="row justify-content-center mb-4 ">
+    <div class="col-md-4 text-center card shadow p-4">      
+
+      <h5 class="my-3">Apakah anda yakin akan logout?</h5>
+      <form method="POST">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-dark" name="logout" />
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

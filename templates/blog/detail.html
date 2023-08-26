@@ -1,0 +1,78 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="row mt-4 justify-content-center">
+  <div class="col-md-6">
+    <div class="mb-4">
+
+      <img src="{{post.image.url}}" class="card-img-top" alt="...">
+      <h1 class="mt-3">{{ post.title }}</h1>
+      <p>{{ post.content }}</p>
+      {% if user.is_authenticated and user.id == post.author.id %}
+      <div class="d-flex">
+        <form method="post" action="{% url 'delete_post' post.pk %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger btn-sm ms-2">Delete</button>
+        </form>
+        <a href="{% url 'update_post' post.id %}" class="btn btn-warning btn-sm ms-2">Update</a>
+       
+      </div>
+      {% endif %}
+
+    </div>
+    <hr>
+    <h5>Comments:</h5>
+    <div>
+      {% for comment in comments %}
+      <div class="d-flex align-items-baseline gap-3">
+        <strong class="fs-6">{{ comment.user.username }}</strong>
+        <p class="fs-6">- {{ comment.text }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="card p-2">
+      <h5>Add a Comment</h5>
+      {% comment %}
+      <form method="post">
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit">Submit</button>
+      </form>
+      {% endcomment %}
+      <form method="post">
+        {% csrf_token %}
+
+        <textarea
+          class="form-control"
+          placeholder="Leave a comment here"
+          name="text"
+          style="height: 100px"
+        ></textarea>
+        <button type="submit" class="mt-2 btn btn-outline-dark">Submit</button>
+      </form>
+    </div>
+    <div class="mt-5 mb-3">
+      <a href="/" class="text-decoration-none rounded text-dark fs-4  p-2 "
+        ><i class="bi bi-arrow-left-short"></i><span>back</span></a
+      >
+    </div>
+  </div>
+  <div class="col-md-3">
+    <h3>Latest Post:</h3>
+   
+    {% for side_post in side_posts %}
+    <a href="{% url 'detail' side_post.pk %}" class="text-decoration-none text-dark">
+    <div class="d-flex gap-3">      
+        <div>
+
+          <img src="{{side_post.image.url}}" class="card-img-top rounded" alt="..." style="width:100px;height:100px">
+        </div>
+        <div class="d-flex flex-column">
+          <span class="fs-4">{{side_post.title}}</span>
+          <span class="fs-6 fw-semibold">Author: {{side_post.author}}</span>
+        </div>
+        {% endfor %}      
+      </div>
+    </a>
+  </div>
+</div>
+
+{% endblock content %}
