@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark shadow-sm">
+<nav class="navbar navbar-expand-lg bg-body-tertiary shadow">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">Navbar</a>
     <button
@@ -24,13 +24,18 @@
         {% endif %}
       </ul>
       <ul class="navbar-nav">  
-        {% if user.is_authenticated %}    
-        <li class="nav-item">
-          <span class="text-warning nav-link" >{{user.username}}</span>      
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " aria-current="page" href="{% url 'logout' %}">Logout</a>
-        </li>
+        {% if user.is_authenticated %}   
+        <li class="nav-item dropdown me-5">
+          <a class="nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{user.username}}
+          </a>
+          <ul class="dropdown-menu" >
+            <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Log out</a></li>
+            
+          </ul>
+        </li> 
+        
         {% else %}
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="{% url 'login' %}">Login</a>

@@ -55,23 +55,23 @@
       >
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 ">
     <h3>Latest Post:</h3>
-   
-    {% for side_post in side_posts %}
-    <a href="{% url 'detail' side_post.pk %}" class="text-decoration-none text-dark">
-    <div class="d-flex gap-3">      
-        <div>
-
+    <div class="d-flex flex-column gap-3">
+      {% for side_post in side_posts %}
+      <a href="{% url 'detail' side_post.pk %}" class="text-decoration-none text-dark" >          
+        <div class="d-flex gap-3">
           <img src="{{side_post.image.url}}" class="card-img-top rounded" alt="..." style="width:100px;height:100px">
+          <div class="d-flex flex-column">
+            <span ><small>Author: {{side_post.author}}</small></span>
+            <span class="fs-4">{{side_post.title}}</span>
+          </div>
         </div>
-        <div class="d-flex flex-column">
-          <span class="fs-4">{{side_post.title}}</span>
-          <span class="fs-6 fw-semibold">Author: {{side_post.author}}</span>
-        </div>
-        {% endfor %}      
-      </div>
+        {% endfor %}     
     </a>
+    </div>
+   
+    
   </div>
 </div>
 
