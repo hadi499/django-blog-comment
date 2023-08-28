@@ -3,7 +3,7 @@
 
 {% block content %}
     <div class="row justify-content-center mb-4">
-      <div class="col-md-4 card shadow mt-5 p-3">
+      <div class="col-md-5 card shadow mt-5 py-3 px-4">
         <h2 class="text-center" >Register Form</h2>
         {% for message in messages %}
             <div class="alert alert-info">{{message}}</div>
@@ -16,8 +16,11 @@
               type="text"
               class="form-control"
               id="username"
-              name="username"        
+              name="username"    
+              required
+              autofocus    
             />
+            <small class="text-secondary">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small>
           </div>       
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
@@ -25,7 +28,8 @@
               type="text"
               class="form-control"
               id="email"
-              name="email"      
+              name="email"     
+              required 
             />
           </div>       
           <div class="mb-3">
@@ -34,16 +38,23 @@
               type="password"
               class="form-control"
               id="password1"
-              name="password1"             
+              name="password1"   
+              required          
             />
+            <div class="d-flex flex-column text-secondary">
+              <small>Your password must containt at least 8 caracthers.</small>
+              <small>Your password can’t be a commonly used password.</small>
+
+            </div>
           </div>       
           <div class="mb-3">
-            <label for="password2" class="form-label">Password</label>
+            <label for="password2" class="form-label">Confirm Password</label>
             <input
               type="password"
               class="form-control"
               id="password2"
-              name="password2"             
+              name="password2"  
+              required           
             />
           </div>       
          
