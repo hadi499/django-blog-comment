@@ -2,12 +2,31 @@ from django.shortcuts import render, redirect
 from .models import BlogPost, Comment
 from .forms import CommentForm, PostForm
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.core.paginator import Paginator
 
 
 @login_required
 def home(request):
-    posts = BlogPost.objects.all()
-    return render(request, 'blog/home.html', {'posts': posts})
+    if 'q' in request.GET:
+        q = request.GET['q']
+        result = Q(title__icontains=q)
+        posts = BlogPost.objects.filter(result)
+    else:
+        data = BlogPost.objects.all()
+        paginator = Paginator(data, 4)  # 10 item per halaman
+        page_number = request.GET.get('page')
+        posts = paginator.get_page(page_number)
+    context = {
+        'posts': posts
+    }
+
+    return render(request, 'blog/home.html', context)
+
+# @login_required
+# def home(request):
+#     posts = BlogPost.objects.all()
+#     return render(request, 'blog/home.html', {'posts': posts})
 
 
 @login_required
