@@ -19,6 +19,7 @@
         <div class="card-body">
           <span class="mt-0"><small>Author: <strong>{{post.author}}</strong></small></span>        
           <h4 class="card-title">{{post.title}}</h4>
+          <small>{{ post.created_at| timesince }} ago</small>
 
         </div>
       </a>
